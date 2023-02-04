@@ -3,6 +3,7 @@
 module ML
   module Utils
     class << self
+      # TODO: put this in a dedicated module
       def make_blobs(n_samples: 100, n_features: 2, centers: 2, random_state: 0, reshape_y: true)
         x = Array.new(n_samples) { Array.new(n_features, 0) }
         y = Array.new(n_samples, 0)
@@ -39,17 +40,19 @@ module ML
         [matrix.length, matrix[0].is_a?(Array) ? matrix[0].length : nil]
       end
 
+      # TODO: split in multiple methods
       def dot(x_data, w_data)
         x_data.map { |row| [row.map.with_index { |element, index| element * (w_data[index][0].is_a?(Array) ? w_data[index][0][0] : w_data[index][0]) }.reduce(&:+)] }
       end
 
+      # TODO: refactor y_pred[i][0] ? 1 : 0
       def accuracy_score(y_true, y_pred)
         total = y_true.length
 
-        total.times.map { |i| y_true[i][0][0] == (y_pred[i][0] ? 1 : 0) ? 1 : 0 }.reduce(&:+) / total
+        total.times.map { |i| y_true[i][0][0] == (y_pred[i][0] ? 1 : 0) ? 1 : 0 }.reduce(&:+).to_f / total
       end
 
-      def transposed_matrix(matrix)
+      def transpose_matrix(matrix)
         matrix[0]
           .length
           .times

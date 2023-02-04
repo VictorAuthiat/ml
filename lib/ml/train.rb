@@ -33,7 +33,11 @@ module ML
     end
 
     def mapping
-      @_mapping ||= ML::Mapper.call(neuron.x_data)
+      @_mapping ||= begin
+        mapper = ML::Mapper.new(neuron.x_data)
+
+        mapper.value
+      end
     end
 
     def w_data
@@ -50,6 +54,7 @@ module ML
 
     private
 
+    # TODO: refactor perhaps split in several methods
     def update_data!
       model_data       = build_model_data
       dw_data, db_data = ML::Gradient.call(model_data, x_data, neuron.y_data)

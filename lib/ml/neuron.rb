@@ -17,6 +17,7 @@ module ML
       @n_iter        = n_iter
     end
 
+    # TODO: find better name
     def call
       train.call
 

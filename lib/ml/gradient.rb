@@ -28,10 +28,13 @@ module ML
     end
 
     def dot
-      subtract          = model_data.map.with_index { |arr, i| [arr[0] - y_data[i][0]] }
       transposed_matrix = ML::Utils.transpose_matrix(x_data)
 
       ML::Utils.dot(transposed_matrix, subtract)
+    end
+
+    def subtract
+      @_subtract ||= model_data.map.with_index { |arr, i| [arr[0] - y_data[i][0]] }
     end
   end
 end

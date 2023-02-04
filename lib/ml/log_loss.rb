@@ -39,9 +39,9 @@ module ML
     end
 
     def y_data_multi_model_data_log
-      e = y_data.map { |r| r.is_a?(Array) ? r.map(&:-@) : -r }
+      neg_data = y_data.map { |r| r.is_a?(Array) ? r.map(&:-@) : -r }
 
-      model_data_log.map.with_index { |r, i| [r[0] * e[i][0]] }
+      model_data_log.map.with_index { |r, i| [r[0] * neg_data[i][0]] }
     end
   end
 end
